@@ -13,6 +13,7 @@ namespace FoodDeliveryServer.Data.Contexts
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Delivery> Delivery { get; set; }
 
         public FoodDeliveryDbContext(DbContextOptions options) : base(options)
         {
@@ -32,6 +33,7 @@ namespace FoodDeliveryServer.Data.Contexts
             modelBuilder.Entity<Order>().ToTable("Orders");
             modelBuilder.Entity<OrderItem>().ToTable("OrderItems");
             modelBuilder.Entity<RefreshToken>().ToTable("RefreshTokens");
+            modelBuilder.Entity<Delivery>().ToTable("Delivery");
         }
     }
 }

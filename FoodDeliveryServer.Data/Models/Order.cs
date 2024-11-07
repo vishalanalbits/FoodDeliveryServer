@@ -16,19 +16,18 @@ namespace FoodDeliveryServer.Data.Models
         public decimal TotalPrice { get; set; }
         public long StoreId { get; set; }
         public Store Store { get; set; } = default!;
-        public OrderStatus OrderStatus
-        {
-            get
-            {
-                if (IsCanceled)
-                {
-                    return OrderStatus.Canceled;
-                }
+        public OrderStatus OrderStatus { get; set; }        //{
+        //    get
+        //    {
+        //        if (IsCanceled)
+        //        {
+        //            return OrderStatus.Canceled;
+        //        }
 
-                DateTime deliveryDateTime = CreatedAt.AddMinutes(Store.DeliveryTimeInMinutes);
-                return DateTime.UtcNow >= deliveryDateTime ? OrderStatus.Completed : OrderStatus.Pending;
-            }
-        }
+            //        DateTime deliveryDateTime = CreatedAt.AddMinutes(Store.DeliveryTimeInMinutes);
+            //        return DateTime.UtcNow >= deliveryDateTime ? OrderStatus.Completed : OrderStatus.Pending;
+            //    }
+            //}
         public string Address { get; set; } = string.Empty;
         public Point DeliveryLocation { get; set; } = default!;
         public Coordinate Coordinate { get; set; } = default!;
