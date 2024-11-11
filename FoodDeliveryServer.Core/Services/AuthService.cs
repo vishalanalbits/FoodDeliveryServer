@@ -58,6 +58,9 @@ namespace FoodDeliveryServer.Core.Services
                 case UserType.Admin:
                     responseDto = _mapper.Map<AdminResponseDto>(existingUser);
                     break;
+                case UserType.Delivery:
+                    responseDto = _mapper.Map<DeliveryResponseDto>(existingUser);
+                    break;
                 default:
                     responseDto = _mapper.Map<UserResponseDto>(existingUser);
                     break;

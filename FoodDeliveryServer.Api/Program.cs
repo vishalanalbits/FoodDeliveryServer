@@ -124,6 +124,10 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IValidator<Order>, OrderValidator>();
 
+builder.Services.AddScoped<IDeliveryService, DeliveryService>();
+builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
+builder.Services.AddScoped<IValidator<Delivery>, DeliveryValidator>();
+
 //builder.Services.AddScoped<IStripeService, StripeService>();
 
 builder.Services.AddDbContext<FoodDeliveryDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("FoodDeliveryDbConnectionString"), npgsqlOptionsAction: options => options.UseNetTopologySuite()));
@@ -133,6 +137,7 @@ MapperConfiguration mapperConfig = new MapperConfiguration(config =>
     config.AddProfile(new AdminProfile());
     config.AddProfile(new PartnerProfile());
     config.AddProfile(new CustomerProfile());
+    config.AddProfile(new DeliveryProfile());
     config.AddProfile(new AuthProfile());
     config.AddProfile(new StoreProfile());
     config.AddProfile(new ProductProfile());

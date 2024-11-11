@@ -1,6 +1,6 @@
-﻿namespace FoodDeliveryServer.Data.Models
+﻿namespace FoodDeliveryServer.Common.Dto.Response
 {
-    public class Delivery : User
+    public class DeliveryResponseDto : UserResponseDto
     {
         public bool IsAvailable { get; set; } = false;
         public string Phone { get; set; } = string.Empty;

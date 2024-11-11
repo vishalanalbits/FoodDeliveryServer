@@ -1,10 +1,11 @@
 ﻿using FoodDeliveryServer.Data.Contexts;
+using FoodDeliveryServer.Data.Interfaces;
 using FoodDeliveryServer.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FoodDeliveryServer.Data.Repositories
 {
-    public class DeliveryRepository
+    public class DeliveryRepository : IDeliveryRepository
     {
         private readonly FoodDeliveryDbContext _dbContext;
 

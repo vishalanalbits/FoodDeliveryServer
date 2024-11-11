@@ -7,7 +7,11 @@ namespace FoodDeliveryServer.Data.Configurations
     {
         public override void Configure(EntityTypeBuilder<Delivery> builder)
         {
+            builder.Property(x => x.IsAvailable).IsRequired();
+
             builder.Property(x => x.Phone).IsRequired().HasMaxLength(20);
+
+            builder.Property(x => x.Vehical).IsRequired().HasMaxLength(50);
 
             base.Configure(builder);
         }
