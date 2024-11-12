@@ -1,4 +1,5 @@
 ﻿using FoodDeliveryServer.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FoodDeliveryServer.Data.Configurations
@@ -7,7 +8,7 @@ namespace FoodDeliveryServer.Data.Configurations
     {
         public override void Configure(EntityTypeBuilder<Delivery> builder)
         {
-            builder.Property(x => x.IsAvailable).IsRequired();
+            builder.Property(x => x.IsAvailable).IsRequired().HasDefaultValue(false);
 
             builder.Property(x => x.Phone).IsRequired().HasMaxLength(20);
 
