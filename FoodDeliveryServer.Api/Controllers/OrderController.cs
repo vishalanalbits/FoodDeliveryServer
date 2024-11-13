@@ -20,7 +20,7 @@ namespace FoodDeliveryServer.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Customer,Partner,Admin")]
+        [Authorize(Roles = "Customer,Partner,Admin,Delivery")]
         public async Task<IActionResult> GetOrders()
         {
             Claim? idClaim = User.Claims.FirstOrDefault(x => x.Type == "UserId");

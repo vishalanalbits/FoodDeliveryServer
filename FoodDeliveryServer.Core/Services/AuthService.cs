@@ -97,6 +97,10 @@ namespace FoodDeliveryServer.Core.Services
                 {
                     throw new IncorrectLoginCredentialsException("Incorrect username");
                 }
+                if (!user.IsActive)
+                {
+                    throw new IncorrectLoginCredentialsException("Inactive user. Please connect Admin.");
+                }
 
                 if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
                 {

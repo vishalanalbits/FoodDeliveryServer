@@ -128,7 +128,8 @@ builder.Services.AddScoped<IDeliveryService, DeliveryService>();
 builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
 builder.Services.AddScoped<IValidator<Delivery>, DeliveryValidator>();
 
-//builder.Services.AddScoped<IStripeService, StripeService>();
+builder.Services.AddScoped<ICommonService, CommonService>();
+builder.Services.AddScoped<ICommonRepository, CommonRepository>();
 
 builder.Services.AddDbContext<FoodDeliveryDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("FoodDeliveryDbConnectionString"), npgsqlOptionsAction: options => options.UseNetTopologySuite()));
 
@@ -162,7 +163,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//StripeConfiguration.ApiKey = builder.Configuration["StripeSettings:SecretKey"];
+StripeConfiguration.ApiKey = builder.Configuration["StripeSettings:SecretKey"];
 
 app.UseMiddleware<ExceptionMiddleware>();
 

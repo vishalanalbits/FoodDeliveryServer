@@ -124,63 +124,70 @@ namespace FoodDeliveryServer.Core.Services
             order.DeliveryFee = store.DeliveryFee;
             order.TotalPrice = order.ItemsPrice + order.DeliveryFee;
             order.CreatedAt = DateTime.UtcNow;
+            order = _orderRepository.CreateOrder(order).Result;
+            //List<SessionLineItemOptions> lineItems = order.Items.Select(item =>
+            //{
+            //    List<string> lineItemImages = new List<string>();
 
-            List<SessionLineItemOptions> lineItems = order.Items.Select(item =>
-            {
-                List<string> lineItemImages = new List<string>();
+            //    if (item.ProductImage != null)
+            //    {
+            //        lineItemImages.Add(item.ProductImage);
+            //    }
 
-                if (item.ProductImage != null)
-                {
-                    lineItemImages.Add(item.ProductImage);
-                }
+            //    return new SessionLineItemOptions()
+            //    {
+            //        PriceData = new SessionLineItemPriceDataOptions()
+            //        {
+            //            ProductData = new SessionLineItemPriceDataProductDataOptions()
+            //            {
+            //                Name = item.ProductName,
+            //                Description = item.ProductDescription,
+            //                Images = lineItemImages,
+            //                Metadata = new Dictionary<string, string>()
+            //                {
+            //                    { "ProductId", item.ProductId.ToString() },
+            //                    { "Quantity", item.Quantity.ToString() }
+            //                }
+            //            },
+            //            UnitAmountDecimal = item.TotalPrice * 100,
+            //            Currency = "usd"
+            //        },
+            //        Quantity = 1
+            //    };
+            //}).ToList();
 
-                return new SessionLineItemOptions()
-                {
-                    PriceData = new SessionLineItemPriceDataOptions()
-                    {
-                        ProductData = new SessionLineItemPriceDataProductDataOptions()
-                        {
-                            Name = item.ProductName,
-                            Description = item.ProductDescription,
-                            Images = lineItemImages,
-                            Metadata = new Dictionary<string, string>()
-                            {
-                                { "ProductId", item.ProductId.ToString() },
-                                { "Quantity", item.Quantity.ToString() }
-                            }
-                        },
-                        UnitAmountDecimal = item.TotalPrice * 100,
-                        Currency = "usd"
-                    },
-                    Quantity = 1
-                };
-            }).ToList();
+            //var clientDomain = _clientSettings.GetValue<string>("ClientDomain");
 
-            var clientDomain = _clientSettings.GetValue<string>("ClientDomain");
+            //var options = new SessionCreateOptions()
+            //{
+            //    LineItems = lineItems,
+            //    Metadata = new Dictionary<string, string>()
+            //    {
+            //        { "CustomerId", order.CustomerId.ToString() },
+            //        { "StoreId", order.StoreId.ToString() },
+            //        { "Address", order.Address },
+            //        { "Coordinate", $"{order.Coordinate.X};{order.Coordinate.Y}" },
+            //    },
+            //    Mode = "payment",
+            //    SuccessUrl = clientDomain + "/payment?status=success",
+            //    CancelUrl = clientDomain + "/payment?status=cancel"
+            //};
 
-            var options = new SessionCreateOptions()
-            {
-                LineItems = lineItems,
-                Metadata = new Dictionary<string, string>()
-                {
-                    { "CustomerId", order.CustomerId.ToString() },
-                    { "StoreId", order.StoreId.ToString() },
-                    { "Address", order.Address },
-                    { "Coordinate", $"{order.Coordinate.X};{order.Coordinate.Y}" },
-                },
-                Mode = "payment",
-                SuccessUrl = clientDomain + "/payment?status=success",
-                CancelUrl = clientDomain + "/payment?status=cancel"
-            };
+            //var service = new SessionService();
+            //Session session = new();
+            //try
+            //{
+            //    session = service.Create(options);
+            //}
+            //catch(Exception ex)
+            //{
 
-            var service = new SessionService();
-
-            Session session = service.Create(options);
+            //}
 
             return new CheckoutResponseDto()
             {
                 Order = _mapper.Map<OrderResponseDto>(order),
-                SessionUrl = session.Url
+                //SessionUrl = session.Url
             };
         }
 
