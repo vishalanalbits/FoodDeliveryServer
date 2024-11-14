@@ -1,4 +1,5 @@
 ﻿using FoodDeliveryServer.Common.Enums;
+using FoodDeliveryServer.Data.Migrations;
 using NetTopologySuite.Geometries;
 
 namespace FoodDeliveryServer.Data.Models
@@ -16,6 +17,7 @@ namespace FoodDeliveryServer.Data.Models
         public decimal TotalPrice { get; set; }
         public long StoreId { get; set; }
         public Store Store { get; set; } = default!;
+        public long DeliveryId { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public string Address { get; set; } = string.Empty;
         public Point DeliveryLocation { get; set; } = default!;

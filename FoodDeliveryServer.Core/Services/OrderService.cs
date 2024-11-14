@@ -333,5 +333,17 @@ namespace FoodDeliveryServer.Core.Services
 
             return _mapper.Map<DeleteEntityResponseDto>(order);
         }
+
+        public async Task<bool> UpdateOrderStatus(long orderId, OrderStatus orderStatus)
+        {
+            var order = await _orderRepository.GetOrderById(orderId);
+            if (order == null)
+            {
+                throw new ResourceNotFoundException("Order not exist with this Id.");
+            }
+            order.OrderStatus = orderStatus;
+            var orderUpdate = await _orderRepository.UpdateOrder(order);
+            return orderUpdate != null ? true : false;
+        }
     }
 }

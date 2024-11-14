@@ -36,8 +36,15 @@ namespace FoodDeliveryServer.Data.Repositories
 
         public async Task<Order> CreateOrder(Order order)
         {
-            await _dbContext.Orders.AddAsync(order);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                await _dbContext.Orders.AddAsync(order);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+
+            }
             return order;
         }
 
