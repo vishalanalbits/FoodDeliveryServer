@@ -7,6 +7,7 @@ namespace FoodDeliveryServer.Data.Interfaces
         public Task<bool> IsEmailTaken(string email);
         public Task<bool> IsUsernameTaken(string username);
         public Task<List<Delivery>> GetAllDeliverys();
+        public Task<List<Order>> GetAvailableOrder();
         public Task<Delivery?> GetDeliveryById(long id);
         public Task<Delivery> RegisterDelivery(Delivery Delivery);
         public Task<Delivery> UpdateDelivery(Delivery Delivery);

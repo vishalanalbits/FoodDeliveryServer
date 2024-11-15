@@ -36,7 +36,7 @@ namespace FoodDeliveryServer.Data.Repositories
 
         public async Task<List<Order>> GetOrdersByDelivery(long deliveryID)
         {
-            return await _dbContext.Orders.Where(x => x.DeliveryId == deliveryID).ToListAsync();
+            return await _dbContext.Orders.Where(x => x.Delivery_ID == deliveryID).ToListAsync();
         }
 
         public async Task<Order> CreateOrder(Order order)

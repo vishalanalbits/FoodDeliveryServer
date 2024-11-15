@@ -8,6 +8,8 @@ using FoodDeliveryServer.Common.Exceptions;
 using FoodDeliveryServer.Core.Interfaces;
 using FoodDeliveryServer.Data.Interfaces;
 using FoodDeliveryServer.Data.Models;
+using NetTopologySuite.Geometries;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace FoodDeliveryServer.Core.Services
 {
@@ -17,7 +19,7 @@ namespace FoodDeliveryServer.Core.Services
         private readonly IValidator<Delivery> _validator;
         private readonly IMapper _mapper;
 
-        public DeliveryService(IDeliveryRepository deliveryRepository, IValidator<Delivery> validator, IMapper mapper)
+        public DeliveryService(IDeliveryRepository deliveryRepository, IOrderRepository orderRepository,  IValidator<Delivery> validator, IMapper mapper)
         {
             _deliveryRepository = deliveryRepository;
             _validator = validator;
@@ -41,6 +43,13 @@ namespace FoodDeliveryServer.Core.Services
             List<Delivery> deliverys = await _deliveryRepository.GetAllDeliverys();
 
             return _mapper.Map<List<DeliveryResponseDto>>(deliverys);
+        }
+
+        public async Task<List<OrderResponseDto>> GetAvailableOrder()
+        {
+            List<Order> orders = await _deliveryRepository.GetAvailableOrder();
+
+            return _mapper.Map<List<OrderResponseDto>>(orders);
         }
 
         public async Task<DeliveryResponseDto> RegisterDelivery(RegisterDelivaryRequestDto requestDto)
@@ -76,7 +85,7 @@ namespace FoodDeliveryServer.Core.Services
             return responseDto;
         }
 
-        public async Task<DeliveryResponseDto> UpdateDelivery(long id, UpdateUserRequestDto requestDto)
+        public async Task<DeliveryResponseDto> UpdateDelivery(long id, UpdateDeliveryRequestDto requestDto)
         {
             Delivery? delivery = await _deliveryRepository.GetDeliveryById(id);
 

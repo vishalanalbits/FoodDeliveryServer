@@ -356,15 +356,15 @@ namespace FoodDeliveryServer.Core.Services
                     throw new ResourceNotFoundException("Order is not related to you.");
                 }
             }
-            else if (userType == UserType.Delivery && order.DeliveryId != userId)
+            else if (userType == UserType.Delivery && order.Delivery_ID != userId)
             {
-                if (order.DeliveryId != 0)
+                if (order.Delivery_ID != 0)
                 {
                     throw new ResourceNotFoundException("Order is not assigned to you.");
                 }
                 else
                 {
-                    order.DeliveryId = userId;
+                    order.Delivery_ID = userId;  
                 }
                 
             }

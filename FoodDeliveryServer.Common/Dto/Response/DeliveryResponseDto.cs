@@ -1,4 +1,6 @@
-﻿namespace FoodDeliveryServer.Common.Dto.Response
+﻿using FoodDeliveryServer.Common.Dto.Shared;
+
+namespace FoodDeliveryServer.Common.Dto.Response
 {
     public class DeliveryResponseDto : UserResponseDto
     {

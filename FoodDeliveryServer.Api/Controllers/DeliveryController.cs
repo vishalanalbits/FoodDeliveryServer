@@ -27,6 +27,18 @@ namespace FoodDeliveryServer.Api.Controllers
             return Ok(responseDto);
         }
 
+        [HttpGet("availableOrder")]
+        [Authorize(Roles = "Delivery")]
+        public async Task<IActionResult> GetAvailableOrder()
+        {
+            Claim? idClaim = User.Claims.FirstOrDefault(x => x.Type == "UserId");
+            long userId = long.Parse(idClaim!.Value);
+
+            List<OrderResponseDto> responseDto = await _deliveryService.GetAvailableOrder();
+
+            return Ok(responseDto);
+        }
+
         [HttpGet("deliveryPersonal/{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetDelivery(long id)
@@ -46,7 +58,7 @@ namespace FoodDeliveryServer.Api.Controllers
 
         [HttpPut("deliveryPersonal/{id}")]
         [Authorize(Roles = "Delivery")]
-        public async Task<IActionResult> UpdateDelivery(long id, [FromBody] UpdateUserRequestDto requestDto)
+        public async Task<IActionResult> UpdateDelivery(long id, [FromBody] UpdateDeliveryRequestDto requestDto)
         {
             Claim? idClaim = User.Claims.FirstOrDefault(x => x.Type == "UserId");
             long userId = long.Parse(idClaim!.Value);

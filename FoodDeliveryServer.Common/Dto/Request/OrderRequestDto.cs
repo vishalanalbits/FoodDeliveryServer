@@ -9,5 +9,6 @@ namespace FoodDeliveryServer.Common.Dto.Request
         public string Address { get; set; } = string.Empty;
         public CoordinateDto Coordinate { get; set; } = default!;
         public string PaymentIntentId { get; set; } = string.Empty;
+        public long Delivery_ID { get; set; }
     }
 }

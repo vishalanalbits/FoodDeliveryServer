@@ -25,8 +25,6 @@ namespace FoodDeliveryServer.Data.Configurations
 
             builder.HasOne(x => x.Store).WithMany(x => x.Orders).HasForeignKey(x => x.StoreId);
 
-            builder.Property(x => x.DeliveryId);
-
             builder.Property(x => x.OrderStatus).IsRequired().HasMaxLength(2);
 
             builder.Property(x => x.Address).IsRequired().HasMaxLength(200);
@@ -36,6 +34,8 @@ namespace FoodDeliveryServer.Data.Configurations
             builder.Ignore(x => x.Coordinate);
 
             builder.Property(x => x.PaymentIntentId).IsRequired().HasMaxLength(255);
+
+            builder.Property(x => x.Delivery_ID).IsRequired().HasDefaultValue(0);
         }
     }
 

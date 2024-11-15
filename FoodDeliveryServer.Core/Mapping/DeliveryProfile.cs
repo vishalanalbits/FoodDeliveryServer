@@ -13,7 +13,7 @@ namespace FoodDeliveryServer.Core.Mapping
 
             CreateMap<Delivery, DeliveryResponseDto>();
 
-            CreateMap<UpdateUserRequestDto, Delivery>();
+            CreateMap<UpdateDeliveryRequestDto, Delivery>();
 
             CreateMap<Delivery, DeleteEntityResponseDto>();
         }

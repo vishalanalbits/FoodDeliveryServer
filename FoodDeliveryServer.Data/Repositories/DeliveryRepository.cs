@@ -1,4 +1,5 @@
-﻿using FoodDeliveryServer.Data.Contexts;
+﻿using FoodDeliveryServer.Common.Enums;
+using FoodDeliveryServer.Data.Contexts;
 using FoodDeliveryServer.Data.Interfaces;
 using FoodDeliveryServer.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,18 @@ namespace FoodDeliveryServer.Data.Repositories
         public async Task<Delivery?> GetDeliveryById(long id)
         {
             return await _dbContext.Delivery.FindAsync(id);
+        }
+
+        public async Task<List<Order>> GetAvailableOrder()
+        {
+            try
+            {
+                return await _dbContext.Orders.Where(x => x.Delivery_ID == 0 && x.OrderStatus != OrderStatus.Pending && x.OrderStatus != OrderStatus.Canceled).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                return new List<Order>();
+            }
         }
 
         public async Task<bool> IsEmailTaken(string email)

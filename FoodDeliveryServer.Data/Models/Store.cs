@@ -22,6 +22,5 @@ namespace FoodDeliveryServer.Data.Models
         public string? ImagePublicId { get; set; }
         public Polygon DeliveryArea { get; set; } = default!;
         public List<Coordinate> Coordinates { get; set; } = default!;
-        public long DeliveryId { get; internal set; }
     }
 }

@@ -17,11 +17,11 @@ namespace FoodDeliveryServer.Data.Models
         public decimal TotalPrice { get; set; }
         public long StoreId { get; set; }
         public Store Store { get; set; } = default!;
-        public long DeliveryId { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public string Address { get; set; } = string.Empty;
         public Point DeliveryLocation { get; set; } = default!;
         public Coordinate Coordinate { get; set; } = default!;
         public string PaymentIntentId { get; set; } = string.Empty;
+        public long Delivery_ID { get; set; } = 0;
     }
 }
