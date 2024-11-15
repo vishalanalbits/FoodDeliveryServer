@@ -20,10 +20,22 @@ namespace FoodDeliveryServer.Data.Repositories
             return await _dbContext.Products.Where(x => !x.IsDeleted).ToListAsync();
         }
 
-        public async Task<List<Product>> GetProductsByStore(long storeId, ItemCategory? Category)
+        public async Task<List<Product>> GetProductsByStore(long storeId, ItemCategory? Category, string? search)
         {
-            var result = await _dbContext.Products.Where(x => x.StoreId == storeId && !x.IsDeleted).ToListAsync();
-            return Category == null ? result : result.Where(x => x.Category == Category).ToList();
+            var result = await _dbContext.Products.Where(x => !x.IsDeleted).ToListAsync();
+            if (storeId > 0)
+            {
+                result = result.Where(x => x.StoreId == storeId).ToList();
+            }
+            if(Category != null)
+            {
+                result = result.Where(x => x.Category == Category).ToList();
+            }
+            if (search != null)
+            {
+                result = result.Where(x => x.Name.Contains(search) || x.Description.Contains(search)).ToList();
+            }
+            return result;
         }
 
         public async Task<Product?> GetProductById(long id)

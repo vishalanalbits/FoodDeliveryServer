@@ -34,17 +34,18 @@ namespace FoodDeliveryServer.Core.Services
             _cloudinary = new Cloudinary(cloudinaryUrl);
         }
 
-        public async Task<List<ProductResponseDto>> GetProducts(long? storeId, ItemCategory? Category)
+        public async Task<List<ProductResponseDto>> GetProducts(long? storeId, ItemCategory? Category, string? search)
         {
             List<Product> products;
 
-            if (storeId == null)
+            if (storeId == null && Category == null && search == null)
             {
                 products = await _productRepository.GetAllProducts();
             }
             else
             {
-                products = await _productRepository.GetProductsByStore(storeId.Value, Category);
+                storeId = storeId ?? 0;
+                products = await _productRepository.GetProductsByStore(storeId.Value, Category, search);
             }
 
             return _mapper.Map<List<ProductResponseDto>>(products);
