@@ -1,4 +1,6 @@
-﻿namespace FoodDeliveryServer.Common.Dto.Request
+﻿using FoodDeliveryServer.Common.Enums;
+
+namespace FoodDeliveryServer.Common.Dto.Request
 {
     public class CreateProductRequestDto
     {
@@ -7,5 +9,6 @@
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+        public ItemCategory Category { get; set; }
     }
 }

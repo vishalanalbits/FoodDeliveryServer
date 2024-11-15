@@ -1,4 +1,5 @@
-﻿using FoodDeliveryServer.Data.Contexts;
+﻿using FoodDeliveryServer.Common.Enums;
+using FoodDeliveryServer.Data.Contexts;
 using FoodDeliveryServer.Data.Interfaces;
 using FoodDeliveryServer.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +20,10 @@ namespace FoodDeliveryServer.Data.Repositories
             return await _dbContext.Products.Where(x => !x.IsDeleted).ToListAsync();
         }
 
-        public async Task<List<Product>> GetProductsByStore(long storeId)
+        public async Task<List<Product>> GetProductsByStore(long storeId, ItemCategory? Category)
         {
-            return await _dbContext.Products.Where(x => x.StoreId == storeId && !x.IsDeleted).ToListAsync();
+            var result = await _dbContext.Products.Where(x => x.StoreId == storeId && !x.IsDeleted).ToListAsync();
+            return Category == null ? result : result.Where(x => x.Category == Category).ToList();
         }
 
         public async Task<Product?> GetProductById(long id)

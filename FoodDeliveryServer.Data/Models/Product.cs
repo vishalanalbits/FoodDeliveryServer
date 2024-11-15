@@ -1,4 +1,6 @@
-﻿namespace FoodDeliveryServer.Data.Models
+﻿using FoodDeliveryServer.Common.Enums;
+
+namespace FoodDeliveryServer.Data.Models
 {
     public class Product
     {
@@ -13,5 +15,6 @@
         public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
         public string? Image { get; set; }
         public string? ImagePublicId { get; set; }
+        public ItemCategory Category { get;set; }
     }
 }

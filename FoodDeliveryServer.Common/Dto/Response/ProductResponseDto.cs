@@ -1,4 +1,6 @@
-﻿namespace FoodDeliveryServer.Common.Dto.Response
+﻿using FoodDeliveryServer.Common.Enums;
+
+namespace FoodDeliveryServer.Common.Dto.Response
 {
     public class ProductResponseDto
     {
@@ -9,5 +11,6 @@
         public int Quantity { get; set; }
         public long StoreId { get; set; }
         public string? Image { get; set; }
+        public ItemCategory Category { get; set; }
     }
 }

@@ -21,6 +21,8 @@ namespace FoodDeliveryServer.Data.Configurations
 
             builder.Property(x => x.Quantity).IsRequired();
 
+            builder.Property(x => x.Category).IsRequired();
+
             builder.HasOne(x => x.Store).WithMany(x => x.Products).HasForeignKey(x => x.StoreId);
         }
     }

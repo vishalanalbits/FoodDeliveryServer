@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using CloudinaryDotNet.Actions;
 using FoodDeliveryServer.Common.Dto.Request;
 using FoodDeliveryServer.Common.Dto.Response;
+using FoodDeliveryServer.Common.Enums;
 
 namespace FoodDeliveryServer.Core.Services
 {
@@ -33,7 +34,7 @@ namespace FoodDeliveryServer.Core.Services
             _cloudinary = new Cloudinary(cloudinaryUrl);
         }
 
-        public async Task<List<ProductResponseDto>> GetProducts(long? storeId)
+        public async Task<List<ProductResponseDto>> GetProducts(long? storeId, ItemCategory? Category)
         {
             List<Product> products;
 
@@ -43,7 +44,7 @@ namespace FoodDeliveryServer.Core.Services
             }
             else
             {
-                products = await _productRepository.GetProductsByStore(storeId.Value);
+                products = await _productRepository.GetProductsByStore(storeId.Value, Category);
             }
 
             return _mapper.Map<List<ProductResponseDto>>(products);

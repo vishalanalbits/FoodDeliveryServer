@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using FoodDeliveryServer.Common.Dto.Request;
 using FoodDeliveryServer.Common.Dto.Response;
+using FoodDeliveryServer.Common.Enums;
 
 namespace FoodDeliveryServer.Api.Controllers
 {
@@ -19,9 +20,9 @@ namespace FoodDeliveryServer.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] long? storeId)
+        public async Task<IActionResult> GetProducts([FromQuery] long? storeId, ItemCategory? Category)
         {
-            List<ProductResponseDto> responseDto = await _productService.GetProducts(storeId ?? null);
+            List<ProductResponseDto> responseDto = await _productService.GetProducts(storeId ?? null, Category);
 
             return Ok(responseDto);
         }
