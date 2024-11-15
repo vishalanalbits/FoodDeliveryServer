@@ -10,5 +10,6 @@ namespace FoodDeliveryServer.Data.Interfaces
         public Task<List<Order>> GetOrdersByPartner(long partnerId);
         public Task<Order> CreateOrder(Order order);
         public Task<Order> UpdateOrder(Order order);
+        public Task<List<Order>> GetOrdersByDelivery(long deliveryID);
     }
 }

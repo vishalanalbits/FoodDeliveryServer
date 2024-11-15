@@ -34,6 +34,11 @@ namespace FoodDeliveryServer.Data.Repositories
             return await _dbContext.Orders.Include(x => x.Store).Include(x => x.Items).ThenInclude(x => x.Product).Where(x => x.Store.PartnerId == partnerId).ToListAsync();
         }
 
+        public async Task<List<Order>> GetOrdersByDelivery(long deliveryID)
+        {
+            return await _dbContext.Orders.Where(x => x.DeliveryId == deliveryID).ToListAsync();
+        }
+
         public async Task<Order> CreateOrder(Order order)
         {
             try

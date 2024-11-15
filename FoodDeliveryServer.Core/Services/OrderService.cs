@@ -47,6 +47,9 @@ namespace FoodDeliveryServer.Core.Services
                 case UserType.Partner:
                     orders = await _orderRepository.GetOrdersByPartner(userId);
                     break;
+                case UserType.Delivery:
+                    orders = await _orderRepository.GetOrdersByDelivery(userId);
+                    break;
                 case UserType.Admin:
                     orders = await _orderRepository.GetAllOrders();
                     break;
@@ -334,12 +337,36 @@ namespace FoodDeliveryServer.Core.Services
             return _mapper.Map<DeleteEntityResponseDto>(order);
         }
 
-        public async Task<bool> UpdateOrderStatus(long orderId, OrderStatus orderStatus)
+        public async Task<bool> UpdateOrderStatus(long orderId, OrderStatus orderStatus, long userId, UserType userType)
         {
             var order = await _orderRepository.GetOrderById(orderId);
             if (order == null)
             {
                 throw new ResourceNotFoundException("Order not exist with this Id.");
+            }
+            if (userType == UserType.Customer && order.CustomerId != userId) 
+            {
+                throw new ResourceNotFoundException("Order is not related to you.");
+            }
+            else if (userType == UserType.Partner)
+            {
+                var store = await _storeRepository.GetStoreById(order.StoreId);
+                if (store == null || store.PartnerId != userId)
+                {
+                    throw new ResourceNotFoundException("Order is not related to you.");
+                }
+            }
+            else if (userType == UserType.Delivery && order.DeliveryId != userId)
+            {
+                if (order.DeliveryId != 0)
+                {
+                    throw new ResourceNotFoundException("Order is not assigned to you.");
+                }
+                else
+                {
+                    order.DeliveryId = userId;
+                }
+                
             }
             order.OrderStatus = orderStatus;
             var orderUpdate = await _orderRepository.UpdateOrder(order);

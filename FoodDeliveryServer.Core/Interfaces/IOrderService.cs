@@ -12,6 +12,6 @@ namespace FoodDeliveryServer.Core.Interfaces
         public Task<DeleteEntityResponseDto> RefundOrder(long orderId, long customerId);
         public Task<DeleteEntityResponseDto> CancelOrder(long orderId, long customerId);
 
-        Task<bool> UpdateOrderStatus(long orderId, OrderStatus orderStatus);
+        Task<bool> UpdateOrderStatus(long orderId, OrderStatus orderStatus, long userId, UserType userType);
     }
 }

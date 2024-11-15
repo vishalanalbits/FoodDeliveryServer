@@ -2,6 +2,7 @@
 using FoodDeliveryServer.Common.Dto.Response;
 using FoodDeliveryServer.Common.Enums;
 using FoodDeliveryServer.Core.Interfaces;
+using FoodDeliveryServer.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -66,7 +67,10 @@ namespace FoodDeliveryServer.Api.Controllers
             long userId = long.Parse(idClaim!.Value);
             var status = (OrderStatus)Enum.Parse(typeof(OrderStatus), orderStatus.ToString());
 
-            var responseDto = await _orderService.UpdateOrderStatus(id, status);
+            Claim? roleClaim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+            UserType userType = (UserType)Enum.Parse(typeof(UserType), roleClaim!.Value);
+
+            var responseDto = await _orderService.UpdateOrderStatus(id, status, userId, userType);
 
             return Ok(responseDto);
         }
@@ -79,7 +83,10 @@ namespace FoodDeliveryServer.Api.Controllers
             long userId = long.Parse(idClaim!.Value);
             var status = (OrderStatus)Enum.Parse(typeof(OrderStatus), orderStatus.ToString());
 
-            var responseDto = await _orderService.UpdateOrderStatus(id, status);
+            Claim? roleClaim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+            UserType userType = (UserType)Enum.Parse(typeof(UserType), roleClaim!.Value);
+
+            var responseDto = await _orderService.UpdateOrderStatus(id, status, userId, userType);
 
             return Ok(responseDto);
         }
@@ -92,7 +99,10 @@ namespace FoodDeliveryServer.Api.Controllers
             long userId = long.Parse(idClaim!.Value);
             var status = (OrderStatus)Enum.Parse(typeof(OrderStatus), orderStatus.ToString());
 
-            var responseDto = await _orderService.UpdateOrderStatus(id, status);
+            Claim? roleClaim = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
+            UserType userType = (UserType)Enum.Parse(typeof(UserType), roleClaim!.Value);
+
+            var responseDto = await _orderService.UpdateOrderStatus(id, status, userId, userType);
 
             return Ok(responseDto);
         }
