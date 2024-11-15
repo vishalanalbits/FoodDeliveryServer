@@ -8,8 +8,6 @@ using FoodDeliveryServer.Common.Exceptions;
 using FoodDeliveryServer.Core.Interfaces;
 using FoodDeliveryServer.Data.Interfaces;
 using FoodDeliveryServer.Data.Models;
-using NetTopologySuite.Geometries;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace FoodDeliveryServer.Core.Services
 {

@@ -16,22 +16,22 @@ namespace FoodDeliveryServer.Data.Repositories
 
         public async Task<List<Order>> GetAllOrders()
         {
-            return await _dbContext.Orders.Include(x => x.Store).Include(x => x.Items).ThenInclude(x => x.Product).ToListAsync();
+            return await _dbContext.Orders.Include(x => x.Restaurant).Include(x => x.Items).ThenInclude(x => x.Menu).ToListAsync();
         }
 
         public async Task<Order?> GetOrderById(long id)
         {
-            return await _dbContext.Orders.Include(x => x.Store).Include(x => x.Items).ThenInclude(x => x.Product).FirstOrDefaultAsync(x => x.Id == id);
+            return await _dbContext.Orders.Include(x => x.Restaurant).Include(x => x.Items).ThenInclude(x => x.Menu).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<Order>> GetOrdersByCustomer(long customerId)
         {
-            return await _dbContext.Orders.Include(x => x.Store).Include(x => x.Items).ThenInclude(x => x.Product).Where(x => x.CustomerId == customerId).ToListAsync();
+            return await _dbContext.Orders.Include(x => x.Restaurant).Include(x => x.Items).ThenInclude(x => x.Menu).Where(x => x.CustomerId == customerId).ToListAsync();
         }
 
         public async Task<List<Order>> GetOrdersByPartner(long partnerId)
         {
-            return await _dbContext.Orders.Include(x => x.Store).Include(x => x.Items).ThenInclude(x => x.Product).Where(x => x.Store.PartnerId == partnerId).ToListAsync();
+            return await _dbContext.Orders.Include(x => x.Restaurant).Include(x => x.Items).ThenInclude(x => x.Menu).Where(x => x.Restaurant.PartnerId == partnerId).ToListAsync();
         }
 
         public async Task<List<Order>> GetOrdersByDelivery(long deliveryID)

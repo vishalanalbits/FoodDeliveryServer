@@ -7,8 +7,8 @@ namespace FoodDeliveryServer.Core.Validators
     {
         public OrderValidator()
         {
-            RuleFor(x => x.StoreId)
-                .NotEmpty().WithMessage("Store Id is required");
+            RuleFor(x => x.RestaurantId)
+                .NotEmpty().WithMessage("Restaurant Id is required");
 
             RuleFor(x => x.Items)
                 .NotEmpty().WithMessage("The 'Items' list shouldn't be empty")
@@ -31,8 +31,8 @@ namespace FoodDeliveryServer.Core.Validators
     {
         public OrderItemValidator()
         {
-            RuleFor(x => x.ProductId)
-                .NotEmpty().WithMessage("Product Id is required");
+            RuleFor(x => x.MenuId)
+                .NotEmpty().WithMessage("Menu Id is required");
 
             RuleFor(x => x.Quantity)
                 .NotNull().WithMessage("Quantity is required")

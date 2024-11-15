@@ -8,8 +8,8 @@ namespace FoodDeliveryServer.Data.Contexts
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Partner> Partners { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Store> Stores { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<Menu> Menus { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
@@ -28,8 +28,8 @@ namespace FoodDeliveryServer.Data.Contexts
             modelBuilder.Entity<Admin>().ToTable("Admins");
             modelBuilder.Entity<Partner>().ToTable("Partners");
             modelBuilder.Entity<Customer>().ToTable("Customers");
-            modelBuilder.Entity<Store>().ToTable("Stores");
-            modelBuilder.Entity<Product>().ToTable("Products");
+            modelBuilder.Entity<Restaurant>().ToTable("Restaurants");
+            modelBuilder.Entity<Menu>().ToTable("Menus");
             modelBuilder.Entity<Order>().ToTable("Orders");
             modelBuilder.Entity<OrderItem>().ToTable("OrderItems");
             modelBuilder.Entity<RefreshToken>().ToTable("RefreshTokens");
