@@ -14,5 +14,6 @@ namespace FoodDeliveryServer.Common.Dto.Response
         public string LastName { get; set; } = string.Empty;
         public UserType UserType { get; set; }
         public string? Image { get; set; }
+        public bool IsActive { get; set; }
     }
 }

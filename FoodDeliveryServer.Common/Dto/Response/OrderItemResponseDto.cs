@@ -2,12 +2,12 @@
 {
     public class OrderItemResponseDto
     {
-        public long ProductId { get; set; }
+        public long MenuId { get; set; }
         public int Quantity { get; set; }
         public decimal TotalPrice { get; set; }
         public long OrderId { get; set; }
-        public string ProductName { get; set; } = string.Empty;
-        public decimal ProductPrice { get; set; }
-        public string? ProductImage { get; set; }
+        public string MenuName { get; set; } = string.Empty;
+        public decimal MenuPrice { get; set; }
+        public string? MenuImage { get; set; }
     }
 }

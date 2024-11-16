@@ -23,9 +23,9 @@ namespace FoodDeliveryServer.Data.Configurations
 
             builder.Property(x => x.TotalPrice).IsRequired();
 
-            builder.HasOne(x => x.Store).WithMany(x => x.Orders).HasForeignKey(x => x.StoreId);
+            builder.HasOne(x => x.Restaurant).WithMany(x => x.Orders).HasForeignKey(x => x.RestaurantId);
 
-            builder.Ignore(x => x.OrderStatus);
+            builder.Property(x => x.OrderStatus).IsRequired().HasMaxLength(2);
 
             builder.Property(x => x.Address).IsRequired().HasMaxLength(200);
 
@@ -34,6 +34,8 @@ namespace FoodDeliveryServer.Data.Configurations
             builder.Ignore(x => x.Coordinate);
 
             builder.Property(x => x.PaymentIntentId).IsRequired().HasMaxLength(255);
+
+            builder.Property(x => x.Delivery_ID).IsRequired().HasDefaultValue(0);
         }
     }
 
@@ -41,9 +43,9 @@ namespace FoodDeliveryServer.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
-            builder.HasKey(x => new { x.OrderId, x.ProductId });
+            builder.HasKey(x => new { x.OrderId, x.MenuId });
 
-            builder.HasOne(x => x.Product).WithMany(x => x.OrderItems).HasForeignKey(x => x.ProductId);
+            builder.HasOne(x => x.Menu).WithMany(x => x.OrderItems).HasForeignKey(x => x.MenuId);
 
             builder.HasOne(x => x.Order).WithMany(x => x.Items).HasForeignKey(x => x.OrderId);
 
@@ -51,11 +53,11 @@ namespace FoodDeliveryServer.Data.Configurations
 
             builder.Property(x => x.TotalPrice).IsRequired();
 
-            builder.Property(x => x.ProductName).IsRequired().HasMaxLength(100);
+            builder.Property(x => x.MenuName).IsRequired().HasMaxLength(100);
 
-            builder.Property(x => x.ProductPrice).IsRequired();
+            builder.Property(x => x.MenuPrice).IsRequired();
 
-            builder.Ignore(x => x.ProductDescription);
+            builder.Ignore(x => x.MenuDescription);
         }
     }
 }

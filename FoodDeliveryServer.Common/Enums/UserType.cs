@@ -4,6 +4,7 @@
     {
         Customer = 0,
         Partner = 1,
-        Admin = 2
+        Admin = 2,
+        Delivery = 3
     }
 }

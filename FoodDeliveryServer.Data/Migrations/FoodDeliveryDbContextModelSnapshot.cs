@@ -48,6 +48,11 @@ namespace FoodDeliveryServer.Data.Migrations
                     b.Property<string>("ImagePublicId")
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -98,6 +103,11 @@ namespace FoodDeliveryServer.Data.Migrations
                     b.Property<string>("ImagePublicId")
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -122,6 +132,124 @@ namespace FoodDeliveryServer.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Customers", (string)null);
+                });
+
+            modelBuilder.Entity("FoodDeliveryServer.Data.Models.Delivery", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(254)
+                        .HasColumnType("character varying(254)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImagePublicId")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("IsAvailable")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("character varying(60)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("Vehical")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("Delivery", (string)null);
+                });
+
+            modelBuilder.Entity("FoodDeliveryServer.Data.Models.Menu", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("Category")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImagePublicId")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("RestaurantId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RestaurantId");
+
+                    b.ToTable("Menus", (string)null);
                 });
 
             modelBuilder.Entity("FoodDeliveryServer.Data.Models.Order", b =>
@@ -150,6 +278,11 @@ namespace FoodDeliveryServer.Data.Migrations
                         .IsRequired()
                         .HasColumnType("geometry (point)");
 
+                    b.Property<long>("Delivery_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasDefaultValue(0L);
+
                     b.Property<bool>("IsCanceled")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
@@ -158,12 +291,16 @@ namespace FoodDeliveryServer.Data.Migrations
                     b.Property<decimal>("ItemsPrice")
                         .HasColumnType("numeric");
 
+                    b.Property<int>("OrderStatus")
+                        .HasMaxLength(2)
+                        .HasColumnType("integer");
+
                     b.Property<string>("PaymentIntentId")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<long>("StoreId")
+                    b.Property<long>("RestaurantId")
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("TotalPrice")
@@ -173,7 +310,7 @@ namespace FoodDeliveryServer.Data.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("StoreId");
+                    b.HasIndex("RestaurantId");
 
                     b.ToTable("Orders", (string)null);
                 });
@@ -183,18 +320,18 @@ namespace FoodDeliveryServer.Data.Migrations
                     b.Property<long>("OrderId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ProductId")
+                    b.Property<long>("MenuId")
                         .HasColumnType("bigint");
 
-                    b.Property<string>("ProductImage")
+                    b.Property<string>("MenuImage")
                         .HasColumnType("text");
 
-                    b.Property<string>("ProductName")
+                    b.Property<string>("MenuName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<decimal>("ProductPrice")
+                    b.Property<decimal>("MenuPrice")
                         .HasColumnType("numeric");
 
                     b.Property<int>("Quantity")
@@ -203,9 +340,9 @@ namespace FoodDeliveryServer.Data.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("numeric");
 
-                    b.HasKey("OrderId", "ProductId");
+                    b.HasKey("OrderId", "MenuId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("MenuId");
 
                     b.ToTable("OrderItems", (string)null);
                 });
@@ -233,6 +370,11 @@ namespace FoodDeliveryServer.Data.Migrations
 
                     b.Property<string>("ImagePublicId")
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -262,51 +404,6 @@ namespace FoodDeliveryServer.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Partners", (string)null);
-                });
-
-            modelBuilder.Entity("FoodDeliveryServer.Data.Models.Product", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<string>("Image")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ImagePublicId")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("StoreId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StoreId");
-
-                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("FoodDeliveryServer.Data.Models.RefreshToken", b =>
@@ -345,7 +442,7 @@ namespace FoodDeliveryServer.Data.Migrations
                     b.ToTable("RefreshTokens", (string)null);
                 });
 
-            modelBuilder.Entity("FoodDeliveryServer.Data.Models.Store", b =>
+            modelBuilder.Entity("FoodDeliveryServer.Data.Models.Restaurant", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -410,7 +507,18 @@ namespace FoodDeliveryServer.Data.Migrations
 
                     b.HasIndex("PartnerId");
 
-                    b.ToTable("Stores", (string)null);
+                    b.ToTable("Restaurants", (string)null);
+                });
+
+            modelBuilder.Entity("FoodDeliveryServer.Data.Models.Menu", b =>
+                {
+                    b.HasOne("FoodDeliveryServer.Data.Models.Restaurant", "Restaurant")
+                        .WithMany("Menus")
+                        .HasForeignKey("RestaurantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurant");
                 });
 
             modelBuilder.Entity("FoodDeliveryServer.Data.Models.Order", b =>
@@ -421,51 +529,40 @@ namespace FoodDeliveryServer.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FoodDeliveryServer.Data.Models.Store", "Store")
+                    b.HasOne("FoodDeliveryServer.Data.Models.Restaurant", "Restaurant")
                         .WithMany("Orders")
-                        .HasForeignKey("StoreId")
+                        .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
 
-                    b.Navigation("Store");
+                    b.Navigation("Restaurant");
                 });
 
             modelBuilder.Entity("FoodDeliveryServer.Data.Models.OrderItem", b =>
                 {
+                    b.HasOne("FoodDeliveryServer.Data.Models.Menu", "Menu")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("MenuId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FoodDeliveryServer.Data.Models.Order", "Order")
                         .WithMany("Items")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FoodDeliveryServer.Data.Models.Product", "Product")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Menu");
 
                     b.Navigation("Order");
-
-                    b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("FoodDeliveryServer.Data.Models.Product", b =>
-                {
-                    b.HasOne("FoodDeliveryServer.Data.Models.Store", "Store")
-                        .WithMany("Products")
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Store");
-                });
-
-            modelBuilder.Entity("FoodDeliveryServer.Data.Models.Store", b =>
+            modelBuilder.Entity("FoodDeliveryServer.Data.Models.Restaurant", b =>
                 {
                     b.HasOne("FoodDeliveryServer.Data.Models.Partner", "Partner")
-                        .WithMany("Stores")
+                        .WithMany("Restaurants")
                         .HasForeignKey("PartnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -478,6 +575,11 @@ namespace FoodDeliveryServer.Data.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("FoodDeliveryServer.Data.Models.Menu", b =>
+                {
+                    b.Navigation("OrderItems");
+                });
+
             modelBuilder.Entity("FoodDeliveryServer.Data.Models.Order", b =>
                 {
                     b.Navigation("Items");
@@ -485,19 +587,14 @@ namespace FoodDeliveryServer.Data.Migrations
 
             modelBuilder.Entity("FoodDeliveryServer.Data.Models.Partner", b =>
                 {
-                    b.Navigation("Stores");
+                    b.Navigation("Restaurants");
                 });
 
-            modelBuilder.Entity("FoodDeliveryServer.Data.Models.Product", b =>
+            modelBuilder.Entity("FoodDeliveryServer.Data.Models.Restaurant", b =>
                 {
-                    b.Navigation("OrderItems");
-                });
+                    b.Navigation("Menus");
 
-            modelBuilder.Entity("FoodDeliveryServer.Data.Models.Store", b =>
-                {
                     b.Navigation("Orders");
-
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

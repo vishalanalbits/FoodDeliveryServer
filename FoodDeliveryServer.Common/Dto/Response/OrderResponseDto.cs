@@ -11,9 +11,9 @@ namespace FoodDeliveryServer.Common.Dto.Response
         public decimal ItemsPrice { get; set; }
         public decimal DeliveryFee { get; set; }
         public decimal TotalPrice { get; set; }
-        public StoreResponseDto Store { get; set; } = default!;
+        public RestaurantResponseDto Restaurant { get; set; } = default!;
         public OrderStatus OrderStatus { get; set; }
-        public long StoreId { get; set; }
+        public long RestaurantId { get; set; }
         public List<OrderItemResponseDto> Items { get; set; } = default!;
         public string Address { get; set; } = string.Empty;
         public CoordinateDto Coordinate { get; set; } = default!;

@@ -49,6 +49,8 @@ namespace FoodDeliveryServer.Data.Repositories
                     return await _dbContext.Partners.FindAsync(id);
                 case UserType.Admin:
                     return await _dbContext.Admins.FindAsync(id);
+                case UserType.Delivery:
+                    return await _dbContext.Delivery.FindAsync(id);
                 default:
                     throw new ArgumentException("Invalid user type");
             }
@@ -64,6 +66,8 @@ namespace FoodDeliveryServer.Data.Repositories
                     return await _dbContext.Partners.Where(x => x.Username == username).FirstOrDefaultAsync();
                 case UserType.Admin:
                     return await _dbContext.Admins.Where(x => x.Username == username).FirstOrDefaultAsync();
+                case UserType.Delivery:
+                    return await _dbContext.Delivery.Where(x => x.Username == username).FirstOrDefaultAsync();
                 default:
                     throw new ArgumentException("Invalid user type");
             }

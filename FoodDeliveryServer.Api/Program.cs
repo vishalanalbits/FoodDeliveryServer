@@ -15,8 +15,8 @@ using Stripe;
 using System.Text;
 using Customer = FoodDeliveryServer.Data.Models.Customer;
 using CustomerService = FoodDeliveryServer.Core.Services.CustomerService;
-using Product = FoodDeliveryServer.Data.Models.Product;
-using ProductService = FoodDeliveryServer.Core.Services.ProductService;
+using Menu = FoodDeliveryServer.Data.Models.Menu;
+using MenuService = FoodDeliveryServer.Core.Services.MenuService;
 using FoodDeliveryServer.Core.Interfaces;
 using FoodDeliveryServer.Core.Services;
 using FoodDeliveryServer.Api.Middleware;
@@ -112,19 +112,24 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IValidator<User>, UserValidator>();
 
-builder.Services.AddScoped<IStoreService, StoreService>();
-builder.Services.AddScoped<IStoreRepository, StoreRepository>();
-builder.Services.AddScoped<IValidator<Store>, StoreValidator>();
+builder.Services.AddScoped<IRestaurantService, RestaurantService>();
+builder.Services.AddScoped<IRestaurantRepository, RestaurantRepository>();
+builder.Services.AddScoped<IValidator<Restaurant>, RestaurantValidator>();
 
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IValidator<Product>, ProductValidator>();
+builder.Services.AddScoped<IMenuService, MenuService>();
+builder.Services.AddScoped<IMenuRepository, MenuRepository>();
+builder.Services.AddScoped<IValidator<Menu>, MenuValidator>();
 
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IValidator<Order>, OrderValidator>();
 
-builder.Services.AddScoped<IStripeService, StripeService>();
+builder.Services.AddScoped<IDeliveryService, DeliveryService>();
+builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
+builder.Services.AddScoped<IValidator<Delivery>, DeliveryValidator>();
+
+builder.Services.AddScoped<ICommonService, CommonService>();
+builder.Services.AddScoped<ICommonRepository, CommonRepository>();
 
 builder.Services.AddDbContext<FoodDeliveryDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("FoodDeliveryDbConnectionString"), npgsqlOptionsAction: options => options.UseNetTopologySuite()));
 
@@ -133,9 +138,10 @@ MapperConfiguration mapperConfig = new MapperConfiguration(config =>
     config.AddProfile(new AdminProfile());
     config.AddProfile(new PartnerProfile());
     config.AddProfile(new CustomerProfile());
+    config.AddProfile(new DeliveryProfile());
     config.AddProfile(new AuthProfile());
-    config.AddProfile(new StoreProfile());
-    config.AddProfile(new ProductProfile());
+    config.AddProfile(new RestaurantProfile());
+    config.AddProfile(new MenuProfile());
     config.AddProfile(new OrderProfile());
     config.AddProfile(new CoordinateProfile());
 });

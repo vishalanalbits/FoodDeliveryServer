@@ -58,6 +58,9 @@ namespace FoodDeliveryServer.Core.Services
                 case UserType.Admin:
                     responseDto = _mapper.Map<AdminResponseDto>(existingUser);
                     break;
+                case UserType.Delivery:
+                    responseDto = _mapper.Map<DeliveryResponseDto>(existingUser);
+                    break;
                 default:
                     responseDto = _mapper.Map<UserResponseDto>(existingUser);
                     break;
@@ -93,6 +96,10 @@ namespace FoodDeliveryServer.Core.Services
                 if (user == null)
                 {
                     throw new IncorrectLoginCredentialsException("Incorrect username");
+                }
+                if (!user.IsActive)
+                {
+                    throw new IncorrectLoginCredentialsException("Inactive user. Please connect Admin.");
                 }
 
                 if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
